@@ -38,6 +38,22 @@ class FormExercise extends React.Component {
 
   onSubmitHandler = (e) => {
     e.preventDefault();
+    let stateString = JSON.stringify(this.state);
+    if (localStorage.getItem('state')===null) {
+      localStorage.setItem('state', stateString);
+    } else {
+      localStorage["state"] = stateString;
+    }
+    
+  }
+
+  componentDidMount = () => {
+    let localStorageState = JSON.parse(localStorage.getItem('state'));
+    console.log(localStorageState);
+    this.setState({
+      ...this.state,
+      ...localStorageState
+    })
   }
 
   render() {
@@ -50,6 +66,10 @@ class FormExercise extends React.Component {
           <input type="checkbox" defaultChecked={this.state.has_aircon} onChange={this.hasAirconCheckedHandler} />
           <input type="submit" value="Submit" />
         </form>
+        <h3>Grade: {this.state.grades}</h3>
+        <h3>Number of Classes: {this.state.number_classes}</h3>
+        <h3>Number of Students: {this.state.number_students}</h3>
+        <h3>Has Aircondition: {this.state.has_aircon ? "Yes" : "No"}</h3>
       </div>
     );
   }
