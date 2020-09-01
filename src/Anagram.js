@@ -1,5 +1,7 @@
 import React from 'react';
 
+import styles from './Anagram.sass';
+
 class Anagram extends React.Component {
   state = {
     first: "",
@@ -46,7 +48,7 @@ class Anagram extends React.Component {
       <div>
         <input type="text" value={this.state.first} onChange={this.firstHandler} />
         <input type="text" value={this.state.second} onChange={this.secondHandler} />
-        <button onClick={this.anagramChecker}>Button</button>
+        <button className="button" onClick={this.anagramChecker}>Button</button>
 
         <p>{this.state.anagram ? "Anagram" : "Not anagram"}</p>
       </div>
