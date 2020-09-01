@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import {BrowserRouter, Route, Switch, NavLink} from 'react-router-dom';
+import {BrowserRouter, Route, Switch, NavLink, Redirect} from 'react-router-dom';
 
 import InputBox from './components/InputBox';
 import FormApp from './components/FormApp';
+import Home from './components/Home';
 
 class StageIdentifier extends Component {
   state = {
@@ -79,11 +80,12 @@ class StageIdentifier extends Component {
           <h1>You are a {this.state.stage}</h1>
           <NavLink to={`/form/${this.state.stage}`} onClick={() => this.onButtonClickHandler()}>Submit</NavLink>
           <Switch>
-            <Route
-              path="/form/:stage"
-              exact
-              render={() => (<FormApp stage={this.state.stage}/>)}
-            />
+            <Route path="/" exact component={Home} />
+            <Route path="/form/:stage" exact>
+              {this.state.stage==='Baby' || this.state.stage==='Toddler' || this.state.stage==='Preschool' ?
+                <Redirect to="/" /> :
+                () => (<FormApp stage={this.state.stage}/>)}
+            </Route>
           </Switch>
         </div>
       </BrowserRouter>
