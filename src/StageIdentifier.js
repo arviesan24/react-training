@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
+import {BrowserRouter, Route, Switch, NavLink} from 'react-router-dom';
 
 import InputBox from './components/InputBox';
+import FormApp from './components/FormApp';
 
-class App extends Component {
+class StageIdentifier extends Component {
   state = {
     stage: "",
     months: 0,
@@ -51,26 +53,42 @@ class App extends Component {
     this.setState({
       ...this.state,
       months: e.target.value
-    }, () => this.counter(this.state.months, this.state.years))
+    })
+    // }, () => this.counter(this.state.months, this.state.years))
   }
 
   onYearChangeHandler = (e) => {
     this.setState({
       ...this.state,
       years: e.target.value
-    }, () => this.counter(this.state.months, this.state.years))
+    })
+    // }, () => this.counter(this.state.months, this.state.years))
   }
 
+  onButtonClickHandler = () => {
+    this.counter(this.state.months, this.state.years);
+  }
 
   render() {
+
     return (
+      <BrowserRouter>
         <div>
-            <InputBox label="Months" value={this.state.months} onChangeHandler={this.onMonthChangeHandler} />
-            <InputBox label="Years" value={this.state.years} onChangeHandler={this.onYearChangeHandler} />
-            <h1>You are a {this.state.stage}</h1>
+          <InputBox label="Months" value={this.state.months} onChangeHandler={this.onMonthChangeHandler} />
+          <InputBox label="Years" value={this.state.years} onChangeHandler={this.onYearChangeHandler} />
+          <h1>You are a {this.state.stage}</h1>
+          <NavLink to={`/form/${this.state.stage}`} onClick={() => this.onButtonClickHandler()}>Submit</NavLink>
+          <Switch>
+            <Route
+              path="/form/:stage"
+              exact
+              render={() => (<FormApp stage={this.state.stage}/>)}
+            />
+          </Switch>
         </div>
+      </BrowserRouter>
     );
   }
 }
 
-export default App;
+export default StageIdentifier;

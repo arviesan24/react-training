@@ -3,6 +3,7 @@ import './App.css';
 
 import StageIdentifier from './StageIdentifier';
 // import Randomizer from './Randomizer';
+// import Anagram from './Anagram';
 
 class App extends Component {
     render() {
@@ -10,6 +11,7 @@ class App extends Component {
             <div className="App">
                 <StageIdentifier />
                 {/* <Randomizer /> */}
+                {/* <Anagram /> */}
             </div>
         );
     }
