@@ -47,6 +47,15 @@ class SchoolForm extends React.Component {
     
   }
 
+  randomPasswordGenerator = () => {
+    let charSet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let password = '';
+    for (let i=0, n=charSet.length; i<=8; ++i) {
+      password += charSet.charAt(Math.floor(Math.random() * n));
+    }
+    return password;
+  }
+
   componentDidMount = () => {
     let localStorageState = JSON.parse(localStorage.getItem('state'));
     console.log(localStorageState);
