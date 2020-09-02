@@ -5,7 +5,10 @@ class SchoolForm extends React.Component {
     grades: "",
     number_classes: 0,
     number_students: 0,
-    has_aircon: false
+    has_aircon: false,
+    username: '',
+    password: '',
+    registered: false,
   }
 
   gradesOnChangeHandler = (e) => {
@@ -38,18 +41,28 @@ class SchoolForm extends React.Component {
 
   onSubmitHandler = (e) => {
     e.preventDefault();
-    let [username, password] = this.accountGenerator();
+    if (this.state.username === '' && this.state.password === '') {
+      let [username, password] = this.accountGenerator();
+      this.setState({
+        ...this.state,
+        username: username,
+        password: password,
+        registered: true
+      });
+    }
+
     let saveEntry = {...this.state};
-    saveEntry["username"] = username;
-    saveEntry["password"] = password;
+    saveEntry["username"] = this.state.username;
+    saveEntry["password"] = this.state.password;
+
     let stateString = JSON.stringify(saveEntry);
 
-    if (localStorage.getItem(username)===null) {
-      localStorage.setItem(username, stateString);
+    if (localStorage.getItem(this.state.username)===null) {
+      localStorage.setItem(this.state.username, stateString);
     } else {
-      localStorage[username] = stateString;
+      localStorage[this.state.username] = stateString;
     }
-    console.log(localStorage);
+
   }
 
   accountGenerator = () => {
@@ -79,16 +92,22 @@ class SchoolForm extends React.Component {
     return (
       <div>
         <form onSubmit={this.onSubmitHandler}>
-          <input type="text" value={this.state.grades} onChange={this.gradesOnChangeHandler} />
-          <input type="number" value={this.state.number_classes} onChange={this.numberClassesOnChangeHandler} />
-          <input type="number" value={this.state.number_students} onChange={this.numberStudentsOnChangeHandler} />
-          <input type="checkbox" defaultChecked={this.state.has_aircon} onChange={this.hasAirconCheckedHandler} />
+          <h2>Registration Form</h2>
+          <label>Grade: </label>
+          <input type="text" value={this.state.grades} onChange={this.gradesOnChangeHandler} /><br/>
+          <label>Number of Classes: </label>
+          <input type="number" value={this.state.number_classes} onChange={this.numberClassesOnChangeHandler} /><br/>
+          <label>Number of Students: </label>
+          <input type="number" value={this.state.number_students} onChange={this.numberStudentsOnChangeHandler} /><br/>
+          <label>Are rooms airconditioned? </label>
+          <input type="checkbox" defaultChecked={this.state.has_aircon} onChange={this.hasAirconCheckedHandler} /><br/>
           <input type="submit" value="Submit" />
         </form>
         <h3>Grade: {this.state.grades}</h3>
         <h3>Number of Classes: {this.state.number_classes}</h3>
         <h3>Number of Students: {this.state.number_students}</h3>
         <h3>Has Aircondition: {this.state.has_aircon ? "Yes" : "No"}</h3>
+        <p>{this.state.registered ? `Registration completed! Your username is: ${this.state.username} and password: ${this.state.password}` : ''}</p>
       </div>
     );
   }
