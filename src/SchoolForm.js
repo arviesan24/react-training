@@ -47,13 +47,18 @@ class SchoolForm extends React.Component {
     
   }
 
-  randomPasswordGenerator = () => {
+  accountGenerator = () => {
     let charSet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     let password = '';
+    let userHash = ''
     for (let i=0, n=charSet.length; i<=8; ++i) {
       password += charSet.charAt(Math.floor(Math.random() * n));
     }
-    return password;
+    for (let i=0, n=charSet.length; i<=3; ++i) {
+      userHash += charSet.charAt(Math.floor(Math.random() * n));
+    }
+    let username = 'user' + userHash;
+    return [username, password];
   }
 
   componentDidMount = () => {
