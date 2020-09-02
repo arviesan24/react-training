@@ -38,13 +38,18 @@ class SchoolForm extends React.Component {
 
   onSubmitHandler = (e) => {
     e.preventDefault();
-    let stateString = JSON.stringify(this.state);
-    if (localStorage.getItem('state')===null) {
-      localStorage.setItem('state', stateString);
+    let [username, password] = this.accountGenerator();
+    let saveEntry = {...this.state};
+    saveEntry["username"] = username;
+    saveEntry["password"] = password;
+    let stateString = JSON.stringify(saveEntry);
+
+    if (localStorage.getItem(username)===null) {
+      localStorage.setItem(username, stateString);
     } else {
-      localStorage["state"] = stateString;
+      localStorage[username] = stateString;
     }
-    
+    console.log(localStorage);
   }
 
   accountGenerator = () => {
