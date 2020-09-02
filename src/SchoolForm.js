@@ -1,6 +1,6 @@
 import React from 'react';
 
-class FormExercise extends React.Component {
+class SchoolForm extends React.Component {
   state={
     grades: "",
     number_classes: 0,
@@ -75,4 +75,4 @@ class FormExercise extends React.Component {
   }
 }
 
-export default FormExercise;
+export default SchoolForm;

@@ -4,7 +4,7 @@ import './App.css';
 // import StageIdentifier from './StageIdentifier';
 // import Randomizer from './Randomizer';
 // import Anagram from './Anagram';
-import FormExercise from './FormExercise';
+import SchoolForm from './SchoolForm';
 
 class App extends Component {
     render() {
@@ -13,7 +13,7 @@ class App extends Component {
                 {/* <StageIdentifier /> */}
                 {/* <Randomizer /> */}
                 {/* <Anagram /> */}
-                <FormExercise />
+                <SchoolForm />
             </div>
         );
     }
