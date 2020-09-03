@@ -92,6 +92,31 @@ class SchoolForm extends React.Component {
     return (
       <div>
         <form onSubmit={this.onSubmitHandler}>
+          <h2>Login</h2>
+          <label>Username: </label>
+          <input
+            type="text"
+            value={this.state.username}
+            onChange={(e) => {
+              this.setState({
+                ...this.state,
+                username: e.target.value
+              })
+            }}
+          /><br/>
+          <label>Password: </label>
+          <input
+            type="password"
+            value={this.state.password}
+            onChange={(e) => {
+              this.setState({
+                ...this.state,
+                password: e.target.value
+              })
+            }}
+          /><br/>
+          <hr />
+
           <h2>Registration Form</h2>
           <label>Grade: </label>
           <input type="text" value={this.state.grades} onChange={this.gradesOnChangeHandler} /><br/>
