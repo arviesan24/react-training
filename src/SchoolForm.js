@@ -104,7 +104,7 @@ class SchoolForm extends React.Component {
     for (let i=0, n=charSet.length; i<=3; ++i) {
       userHash += charSet.charAt(Math.floor(Math.random() * n));
     }
-    let username = 'user' + userHash;
+    let username = 'user_' + userHash;
     return [username, password];
   }
 
