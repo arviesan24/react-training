@@ -1,4 +1,5 @@
 import React from 'react';
+import classes from './SchoolForm.module.css';
 
 class SchoolForm extends React.Component {
   state={
@@ -9,6 +10,7 @@ class SchoolForm extends React.Component {
     username: '',
     password: '',
     registered: false,
+    userNotFoundError: false,
   }
 
   gradesOnChangeHandler = (e) => {
@@ -51,14 +53,22 @@ class SchoolForm extends React.Component {
     });
     matchedAccount = matchedAccount[0];
     if (matchedAccount !== null) {
-      // matchedAccount = JSON.parse(matchedAccount);
-      console.log(matchedAccount)
       this.setState({
         ...this.state,
         grades: matchedAccount.grades,
         number_classes: matchedAccount.number_classes,
         number_students: matchedAccount.number_students,
         has_aircon: matchedAccount.has_aircon,
+        userNotFoundError: false
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        grades: "",
+        number_classes: 0,
+        number_students: 0,
+        has_aircon: false,
+        userNotFoundError: true
       });
     }
   }
@@ -85,7 +95,6 @@ class SchoolForm extends React.Component {
     });
 
     let stateString = JSON.stringify(saveEntry);
-    console.log(localStorage.getItem(username)===null);
     if (localStorage.getItem(username)===null) {
       localStorage.setItem(username, stateString);
     } else {
@@ -132,7 +141,7 @@ class SchoolForm extends React.Component {
                 username: e.target.value
               })
             }}
-          /><br/>
+          />
           <label>Password: </label>
           <input
             type="password"
@@ -143,22 +152,25 @@ class SchoolForm extends React.Component {
                 password: e.target.value
               })
             }}
-          /><br/>
-          <input type="submit" value="Login" />
+          />
+          <input type="submit" value="Login" className={[classes.button, classes.green].join(" ")} />
+          {this.state.userNotFoundError ? <p className={classes.errorLabel}>User not found.</p> : ''}
         </form>
         <hr />
         <form onSubmit={this.onRegisterSubmitHandler}>
           <h2>Registration Form</h2>
           <label>Grade: </label>
-          <input type="text" value={this.state.grades} onChange={this.gradesOnChangeHandler} /><br/>
+          <input type="text" value={this.state.grades} onChange={this.gradesOnChangeHandler} />
           <label>Number of Classes: </label>
-          <input type="number" value={this.state.number_classes} onChange={this.numberClassesOnChangeHandler} /><br/>
+          <input type="number" value={this.state.number_classes} onChange={this.numberClassesOnChangeHandler} />
           <label>Number of Students: </label>
-          <input type="number" value={this.state.number_students} onChange={this.numberStudentsOnChangeHandler} /><br/>
+          <input type="number" value={this.state.number_students} onChange={this.numberStudentsOnChangeHandler} />
           <label>Are rooms airconditioned? </label>
-          <input type="checkbox" defaultChecked={this.state.has_aircon} onChange={this.hasAirconCheckedHandler} /><br/>
-          <input type="submit" value="Submit" />
+          <input type="checkbox" defaultChecked={this.state.has_aircon} onChange={this.hasAirconCheckedHandler} />
+          <input type="submit" value="Submit" className={[classes.button, classes.blue].join(" ")} />
         </form>
+        <hr />
+        <h2>Output</h2>
         <h3>Grade: {this.state.grades}</h3>
         <h3>Number of Classes: {this.state.number_classes}</h3>
         <h3>Number of Students: {this.state.number_students}</h3>
