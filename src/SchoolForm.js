@@ -117,14 +117,41 @@ class SchoolForm extends React.Component {
     return [username, password];
   }
 
-  componentDidMount = () => {
-    let localStorageState = JSON.parse(localStorage.getItem('state'));
-    console.log(localStorageState);
-    this.setState({
-      ...this.state,
-      ...localStorageState
-    })
+  onDeleteHandler = (e) => {
+    e.preventDefault();
+    if (window.confirm("Are you sure you want to delete your account?")) {
+      if (this.state.username !== "" && this.state.password !== "") {
+        // ;
+        if (localStorage.getItem(this.state.username)!==null) {
+          let selectedAccount = JSON.parse(localStorage.getItem(this.state.username));
+          if (selectedAccount['username'] === this.state.username && selectedAccount['password'] === this.state.password) {
+            localStorage.removeItem(this.state.username);
+            alert('Account deleted successfully.');
+            this.setState({
+              ...this.state,
+              grades: "",
+              number_classes: 0,
+              number_students: 0,
+              has_aircon: false,
+              username: "",
+              password: ""
+            });
+          }
+        } else {
+          alert('No account matched.');
+        }
+      }
+    }
   }
+
+  // componentDidMount = () => {
+  //   let localStorageState = JSON.parse(localStorage.getItem('state'));
+  //   console.log(localStorageState);
+  //   this.setState({
+  //     ...this.state,
+  //     ...localStorageState
+  //   })
+  // }
 
   render() {
     return (
@@ -153,7 +180,7 @@ class SchoolForm extends React.Component {
               })
             }}
           />
-          <input type="submit" value="Login" className={[classes.button, classes.green].join(" ")} />
+          <input type="submit" value="Login" className={classes.green} />
           {this.state.userNotFoundError ? <p className={classes.errorLabel}>User not found.</p> : ''}
         </form>
         <hr />
@@ -167,7 +194,7 @@ class SchoolForm extends React.Component {
           <input type="number" value={this.state.number_students} onChange={this.numberStudentsOnChangeHandler} />
           <label>Are rooms airconditioned? </label>
           <input type="checkbox" defaultChecked={this.state.has_aircon} onChange={this.hasAirconCheckedHandler} />
-          <input type="submit" value="Submit" className={[classes.button, classes.blue].join(" ")} />
+          <input type="submit" value="Submit" className={classes.blue} />
         </form>
         <hr />
         <h2>Output</h2>
@@ -176,6 +203,7 @@ class SchoolForm extends React.Component {
         <h3>Number of Students: {this.state.number_students}</h3>
         <h3>Has Aircondition: {this.state.has_aircon ? "Yes" : "No"}</h3>
         <p>{this.state.registered ? `Registration completed! Your username is: ${this.state.username} and password: ${this.state.password}` : ''}</p>
+        <button className={classes.red} onClick={this.onDeleteHandler}>Delete Account</button>
       </div>
     );
   }
