@@ -18,9 +18,9 @@ class Finder extends React.Component {
     return (
       <div>
         FullName: <input value={this.props.info.fullName} onChange={this.handleFullNameChange} />
- Age: <input value={this.props.info.age} onChange={this.handleAgeChange} />
- Needs Aircon: <input type="checkbox" defaultChecked={this.props.info.needsAircon} onChange={this.handleAirconChange} />
- Parential Control: <input type="checkbox" defaultChecked={this.props.info.parentControl} onChange={this.handleParentControl} />
+        Age: <input value={this.props.info.age} onChange={this.handleAgeChange} />
+        Needs Aircon: <input type="checkbox" defaultChecked={this.props.info.needsAircon} onChange={this.handleAirconChange} />
+        Parential Control: <input type="checkbox" defaultChecked={this.props.info.parentControl} onChange={this.handleParentControl} />
       </div>
     )
   }
