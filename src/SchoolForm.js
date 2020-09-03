@@ -39,28 +39,57 @@ class SchoolForm extends React.Component {
     })
   }
 
-  onSubmitHandler = (e) => {
+  onLoginSubmitHandler = (e) => {
     e.preventDefault();
-    if (this.state.username === '' && this.state.password === '') {
-      let [username, password] = this.accountGenerator();
+    let matchedAccount = Object.keys(localStorage).map((key) => {
+      let localStorageResult = JSON.parse(localStorage.getItem(key));
+      if (localStorageResult.username === this.state.username && localStorageResult.password === this.state.password) {
+        return localStorageResult;
+      } else {
+        return null
+      }
+    });
+    matchedAccount = matchedAccount[0];
+    if (matchedAccount !== null) {
+      // matchedAccount = JSON.parse(matchedAccount);
+      console.log(matchedAccount)
       this.setState({
         ...this.state,
-        username: username,
-        password: password,
-        registered: true
+        grades: matchedAccount.grades,
+        number_classes: matchedAccount.number_classes,
+        number_students: matchedAccount.number_students,
+        has_aircon: matchedAccount.has_aircon,
       });
+    }
+  }
+
+  onRegisterSubmitHandler = (e) => {
+    e.preventDefault();
+    let username = this.state.username;
+    let password = this.state.password;
+    let registered = false
+    if (this.state.username === '' && this.state.password === '') {
+      [username, password] = this.accountGenerator();
+      registered = true
     }
 
     let saveEntry = {...this.state};
-    saveEntry["username"] = this.state.username;
-    saveEntry["password"] = this.state.password;
+    saveEntry["username"] = username;
+    saveEntry["password"] = password;
+
+    this.setState({
+      ...this.state,
+      username: username,
+      password: password,
+      registered: registered
+    });
 
     let stateString = JSON.stringify(saveEntry);
-
-    if (localStorage.getItem(this.state.username)===null) {
-      localStorage.setItem(this.state.username, stateString);
+    console.log(localStorage.getItem(username)===null);
+    if (localStorage.getItem(username)===null) {
+      localStorage.setItem(username, stateString);
     } else {
-      localStorage[this.state.username] = stateString;
+      localStorage[username] = stateString;
     }
 
   }
@@ -91,8 +120,8 @@ class SchoolForm extends React.Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.onSubmitHandler}>
-          <h2>Login</h2>
+        <form onSubmit={this.onLoginSubmitHandler}>
+        <h2>Login</h2>
           <label>Username: </label>
           <input
             type="text"
@@ -115,8 +144,10 @@ class SchoolForm extends React.Component {
               })
             }}
           /><br/>
-          <hr />
-
+          <input type="submit" value="Login" />
+        </form>
+        <hr />
+        <form onSubmit={this.onRegisterSubmitHandler}>
           <h2>Registration Form</h2>
           <label>Grade: </label>
           <input type="text" value={this.state.grades} onChange={this.gradesOnChangeHandler} /><br/>
