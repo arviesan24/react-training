@@ -4,25 +4,25 @@ import Result from './results'
 
 const schools = [
   {
-    name: '',
+    name: 'Harvard',
     maxAge: 7,
     needsAircon: true,
     parentControl: false
   },
   {
-    name: '',
+    name: 'Merriam',
     maxAge: 9,
     needsAircon: false,
     parentControl: true
   },
   {
-    name: '',
+    name: 'St. Augustine',
     maxAge: 15,
     needsAircon: true,
     parentControl: true
   },
   {
-    name: '',
+    name: 'Ateneo',
     maxAge: 18,
     needsAircon: false,
     parentControl: true
@@ -36,7 +36,7 @@ class Registration extends React.Component {
     this.state = {
       age: 0,
       needsAircon: true,
-      fullName: 'Enter your name Fulname + lastname',
+      fullName: 'Romel',
       parentControl: false
     }
   }
