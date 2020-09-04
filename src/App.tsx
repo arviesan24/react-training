@@ -5,7 +5,8 @@ import './App.css';
 // import Randomizer from './Randomizer';
 // import Anagram from './Anagram';
 // import SchoolForm from './SchoolForm';
-import Registration from './ReactRegistration/registration';
+// import Registration from './ReactRegistration/registration';
+import Countries from './Countries';
 
 class App extends Component {
     render() {
@@ -15,7 +16,8 @@ class App extends Component {
                 {/* <Randomizer /> */}
                 {/* <Anagram /> */}
                 {/* <SchoolForm /> */}
-                <Registration />
+                {/* <Registration /> */}
+                <Countries />
             </div>
         );
     }
