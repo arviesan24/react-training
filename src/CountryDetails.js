@@ -28,7 +28,7 @@ class CountryDetails extends React.Component {
     // this.props.callingCodes
   }
 
-  componentWillMount = async () => {
+  componentDidMount  = async () => {
     await this.getCallingCode();
   }
 
@@ -37,7 +37,7 @@ class CountryDetails extends React.Component {
     const detailsToDisplayArray = ['region', 'alpha3Code', 'capital', 'subregion']
 
     details = detailsToDisplayArray.map(detailToDisplay => {
-    return  <p>{this.state.results[0] !== undefined ? `${detailToDisplay}: ${this.state.results[0][detailToDisplay]}` : ""}</p>;
+    return  <p key={detailToDisplay}>{this.state.results[0] !== undefined ? `${detailToDisplay}: ${this.state.results[0][detailToDisplay]}` : ""}</p>;
     });
 
     return(

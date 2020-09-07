@@ -35,7 +35,7 @@ class Countries extends React.Component {
     );
   }
 
-  componentWillMount = async () => {
+  componentDidMount  = async () => {
     await this.getAllCountries();
   }
 
