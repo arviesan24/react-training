@@ -1,0 +1,23 @@
+.div {
+    border-width: 1px;
+    border-style: solid;
+    text-align: left;
+}
+
+li {
+    list-style: none;
+    /* text-align: left; */
+}
+
+label {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 5px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-bottom: 3px;
+    text-align: left;
+}
