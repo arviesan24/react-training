@@ -9,22 +9,22 @@ class FormApp extends React.Component {
     switch(this.props.stage) {
       case "Baby":
         return classes.A;
-        break;
+        
       case "Toddler":
         return classes.B;
-        break;
+        
       case "Preschool":
         return classes.C;
-        break;
+        
       case "Gradeschooler":
         return classes.D;
-        break;
+        
       case "Teen":
         return classes.E;
-        break;
+        
       case "Young adult":
         return classes.F;
-        break;
+        
       default:
         return classes.default;
     }
