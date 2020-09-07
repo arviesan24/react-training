@@ -33,9 +33,16 @@ class CountryDetails extends React.Component {
   }
 
   render(props) {
+    let details = null
+    const detailsToDisplayArray = ['region', 'alpha3Code', 'capital', 'subregion']
+
+    details = detailsToDisplayArray.map(detailToDisplay => {
+    return  <p>{this.state.results[0] !== undefined ? `${detailToDisplay}: ${this.state.results[0][detailToDisplay]}` : ""}</p>;
+    });
+
     return(
       <div className={classes.div}>
-        {this.state.results[0] !== undefined ? this.state.results[0].region : ""}
+        {details}
       </div>
     )
   }
