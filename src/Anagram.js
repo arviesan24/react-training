@@ -43,7 +43,6 @@ class Anagram extends React.Component {
   }
 
   render() {
-    console.log(this.state.anagram)
     return (
       <div>
         <input type="text" value={this.state.first} onChange={this.firstHandler} />
